@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8"/>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css"/>
+  <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+
+  <title >UJI</title>
+</head>
+
+<body class="container-fluid">
+<div th:replace="fragments/nav"></div>
+
+<div layout:fragment="container-fluid" class="container-fluid-div"></div>
+<footer class="bg-dark text-light mt-5">
+  <div class="container py-3">
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Información de contacto</h4>
+        <ul class="list-unstyled">
+          <li>Dirección: Avinguda de Vicent Sos Baynat, s/n, 12006 Castelló de la Plana, Castelló</li>
+          <li>Teléfono: +34 964 72 80 00</li>
+          <li>Email: info@uji.com</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h4>Redes sociales</h4>
+        <ul class="list-unstyled">
+          <li><a href="https://www.facebook.com/universitatjaumei/?locale=es_ES">Facebook</a></li>
+          <li><a href="https://twitter.com/UJIuniversitat?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Twitter</a></li>
+          <li><a href="https://www.instagram.com/ujiuniversitat/?hl=es">Instagram</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h4>Acerca de nosotros</h4>
+        <p>Somos una Universidad comprometida con el desarrollo sostenible y la consecución de los Objetivos de Desarrollo Sostenible de la ONU. Nos preocupamos por el medio ambiente y por la sociedad, y trabajamos para conseguir un mundo mejor para todos.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

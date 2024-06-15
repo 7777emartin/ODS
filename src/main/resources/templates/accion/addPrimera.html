@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/base}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registrar Acción</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+<div layout:fragment="container-fluid">
+    <div class="div-info">
+        <p>Para completar una acción, es obligatorio añadir al menos una acción y un participante. De lo contrario, la acción será eliminada por un Administrador.</p>
+    </div>
+    <div th:if="${mensaje}" class="mensaje-exito">
+        <p th:text="${mensaje}"></p>
+    </div>
+
+    <div class="div-miembrouji-add-general">
+        <div class="form-container-add">
+            <h2 style="text-align: center;margin: 30px;">Añadir Acción</h2>
+            <div class="tooltip" >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="Ayuda" width="90px" class="imageRight">
+                <span class="tooltiptext"> Ayuda:
+                    <ul>
+                        <li>Te recomendamos crear las Acciones con tiempo, para poder reunir la mayor cantidad de Participantes</li>
+                        <li>Las Acciones tiene como obligación tener una Fecha de inicio y de Fin</li>
+                        <li>FECHA FIN TIENE QUE SER MAYOR A FECHA INICIO!/li>
+                        <li>Puedes crear todas las Acciones que creas necesarias para cumplir tu iniciativa</li>
+                    </ul>
+                </span>
+            </div>
+            <form class="form-horizontal" action="#" th:action="@{/accion/addPrimera (id_iniciativa=${id_iniciativa}) }" th:object="${accion}" method="post">
+                <div class="form-group-add" hidden="hidden">
+                    <label for="nombre">Id iniciativa</label>
+                    <input type="text" class="form-control" id="nombre2" name="id_iniciativa" placeholder="Introduce un nombre de la acción" th:value="${id_iniciativa}" maxlength="200" />
+                </div>
+                <div class="form-group-add">
+                    <label for="nombre">Nombre de la Acción</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Introduce un nombre de la acción" th:field="*{nombre}" />
+                    <small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                </div>
+                <div class="form-group-add">
+                    <label for="fechaInicio">Fecha Inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio"  th:field="*{fechaInicio}" th:min="${#temporals.createToday()}" />
+                    <small class="text-danger" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></small>
+                </div>
+                <div class="form-group-add">
+                    <label for="fechaFin">Fecha Fin</label>
+
+                    <input type="date" class="form-control" id="fechaFin" th:field="*{fechaFin}" th:min="${#temporals.createToday()}" />
+                    <small class="text-danger" th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></small>
+                </div>
+                <div class="form-group-add">
+                    <label>Objetivo de la Acción</label>
+                    <select class="custom-select mr-sm-2" th:field="*{id_objetivo}" required>
+                        <option value="0" selected>Selecciona un objetivo</option>
+                        <option th:each="objetivo: ${objetivos}" th:value="${objetivo.id_objetivo}" th:text="${objetivo.nombre}"></option>
+                    </select>
+                    <small class="text-danger" th:if="${#fields.hasErrors('id_objetivo')}" th:errors="*{id_objetivo}"></small>
+                </div>
+                <div class="form-group-add">
+                    <label for="resultadoEsperado">Resultado esperado</label>
+                    <textarea class="form-control" id="resultadoEsperado" rows="3" cols="15" th:field="*{resultadoEsperado}" style="resize: none;" maxlength="2000" name="resultadoEsperado" placeholder="Introduce aquí el resultado esperado"></textarea>
+                    <small class="text-danger" th:if="${#fields.hasErrors('resultadoEsperado')}" th:errors="*{resultadoEsperado}"></small>
+                </div>
+                <input type="hidden" class="form-control" id="id_iniciativa" name="id_iniciativa" th:field="*{id_iniciativa}" placeholder="Introduce un nombre de la acción" />
+
+                <div class="form-group-add">
+                    <button type="submit" class="btn btn-primary" th:onclick="'return confirm(\'¿Estás seguro de que deseas crear esta Accion?\')'">Añadir Acción</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+</div>
+</div>
+</body>
+</html>

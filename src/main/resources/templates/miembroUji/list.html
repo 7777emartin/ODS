@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestión Miembros UJI</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container-fluid">
+  <h1>Miembros UJI</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>al</th>
+      <th>Nombre</th>
+      <th>Teléfono</th>
+      <th>Tipo</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="miembrouji: ${miembroUjiList}">
+      <td th:text="${miembrouji.id_miembro}"></td>
+      <td th:text="${miembrouji.nombre}"></td>
+      <td th:text="${miembrouji.telefono}"></td>
+      <td th:text="${{miembrouji.correo}}"></td>
+      <td th:text="${{miembrouji.tipo}}"></td>
+      <td> <a th:href="@{/miembrouji/update/{id_miembro}(id_miembro=${miembrouji.id_miembro})}" class="btn btn-warning" role="button">Actualizar</a></td>
+      <td><a th:href="@{/miembrouji/delete/{id_miembro}(id_miembro=${miembrouji.id_miembro})}" class="btn btn-danger" role="button">Borrar</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="add" class="btn btn-success" role="button">Añadir Miembro UJI</a>
+</div>
+</body>
+</html>

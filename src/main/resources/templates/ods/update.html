@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Lista de Iniciativas</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid">
+    <div th:replace="fragments/back"></div>
+    <div class="div-miembrouji-add-general">
+        <div class="form-container-add" style="background:#e1ff6e">
+            <h2 style="text-align: center;margin: 30px;">Editar ODS</h2>
+            <form action="#"  th:action="@{/ods/update}" th:object="${ods}" method="post">
+
+                <td><input type="hidden" th:field="${ods.id_ods}"/></td>
+
+                <div class="form-group-add">
+                    <label for="descripcion">Número ODS</label>
+                    <input type="text" class="form-control" th:field="${ods.numero}" readonly />
+                </div>
+
+                <div class="form-group-add">
+                    <label for="descripcion">Nombre de ODS</label>
+                    <input type="text" class="form-control" id="nombre_ods" name="nombre" th:field="${ods.nombre}" maxlength="50"/>
+                    <div th:if="${#fields.hasErrors('nombre')}" th:errors="${ods.nombre}" class = error></div>
+
+                </div>
+
+                <div class="form-group-add">
+                    <label for="descripcion">URL de la Imagen</label>
+                    <input type="text" class="form-control" id="foto_ref" name="foto_ref" th:field="${ods.foto_ref}" maxlength="500" />
+                    <div th:if="${#fields.hasErrors('foto_ref')}" th:errors="${ods.foto_ref}" class = error></div>
+
+                </div>
+                <div class="form-group-add">
+                    <label for="descripcion">Descripción</label>
+                    <textarea class="form-control" id="descripcion" rows="3" cols="15"  style="resize: none;" th:field="${ods.descripcion}" maxlength="200"></textarea>
+                    <div th:if="${#fields.hasErrors('descripcion')}" th:errors="${ods.descripcion}" class = error></div>
+
+                </div>
+                <div class="form-group-add">
+                    <button type="submit" class="btn btn-primary">ACTUALIZAR ODS</button>
+                </div>
+            </form>
+
+        </div>
+
+
+</div>
+</body>
+</html>

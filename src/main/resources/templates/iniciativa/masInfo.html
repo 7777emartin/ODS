@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Lista de Iniciativas</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css"/>
+  <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+<div layout:fragment="container-fluid">
+
+  <div th:replace="fragments/back"></div>
+
+  <div class="container" th:object="${session}">
+
+    <div th:each="iniciativa: ${iniciativa}">
+
+      <div class="div-iniciativa-masinfo-iniciativa-principal">
+        <h1 th:text="${iniciativa.nombre}"></h1>
+
+        <div class="div-masinfo-row">
+          <a>
+            <label style="margin: 20px;">Fecha Inicio</label>
+            <span class=" noManita btn btn-outline-info " th:text="${#temporals.format(iniciativa.fechaInicio, 'dd-MM-yyyy')}"></span>
+          </a>
+
+          <a th:if="${iniciativa.fechaFin == null}">
+            <label style="margin: 20px;">Fecha Fin</label>
+            <span class="btn btn-outline-info noManita">Indeterminado</span>
+          </a>
+
+          <a th:if="${iniciativa.fechaFin != null}">
+            <label style="margin: 20px;">Fecha Fin</label>
+            <span class="btn btn-outline-info noManita" th:text="${#temporals.format(iniciativa.fechaFin, 'dd-MM-yyyy')}"></span>
+          </a>
+
+          <div style="display: block">
+            <label style="margin: 20px;">Clasificación</label>
+            <span class="btn btn-outline-dark noManita" th:text="${iniciativa.clasificacion}"></span>
+          </div>
+          <div style="display: block">
+          <div style="display: block">
+            <label style="margin: 20px;">ODS</label>
+            <span class="btn btn-outline-primary noManita dynamic-button" th:text="${ods}"></span>
+          </div>
+          </div>
+        </div>
+
+        <div style="display: block; margin-bottom: 30px">
+
+          <label style="margin: 10px;">Estado</label>
+          <a th:if="${iniciativa.estado=='Revision pendiente'}">
+            <span typeof="text" class="btn btn-warning noManita" th:text="${iniciativa.estado}"></span>
+          </a>
+          <a th:if="${iniciativa.estado=='Finalizado'}">
+            <span class="btn btn-danger noManita" th:text="${iniciativa.estado}"></span>
+          </a>
+          <a th:if="${iniciativa.estado=='Rechazado'}">
+            <span class="btn btn-secondary noManita" th:text="${iniciativa.estado}"></span>
+          </a>
+          <a th:if="${iniciativa.estado=='En progreso'}">
+            <span class="btn btn-success noManita" th:text="${iniciativa.estado}"></span>
+          </a>
+          <div style="display: block">
+            <label style="margin: 10px;">Creador:</label>
+            <span class="btn btn-outline-dark noManita" th:text="${NombreCreador}"></span>
+          </div>
+        </div>
+
+        <h3>Descripción</h3>
+        <span class="box-cuadritos" th:text="${iniciativa.descripcion}"></span>
+        <h3>Motivaciones</h3>
+        <span class="box-cuadritos" th:text="${iniciativa.motivacion}"></span>
+        <span th:if="${iniciativa.comentario != '' and iniciativa.comentario != null}">
+          <h3>Comentarios generales</h3>
+          <span style=" margin-bottom: 10px" class="box-cuadritos"  th:text="${iniciativa.comentario}"></span>
+        </span>
+        <span th:if="${iniciativa.fechaModificacion != null}">
+          <label style="margin: 20px;">Última modificación</label>
+          <span class="btn btn-outline-dark noManita" th:text="${#temporals.format(iniciativa.fechaModificacion,'dd-MM-yyyy')}"></span>
+        </span>
+      </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+      <div class="div-masinfo-botones">
+        <label th:text="${NumAcciones}"></label>
+        <a href="/" th:href="@{/accion/list/{id_iniciativa}(id_iniciativa=${iniciativa.id_iniciativa})}"
+           class="btn btn-outline-dark  boton-mas-info-detalles" role="button" >VER ACCIONES</a>
+      </div>
+
+      <span th:unless="*{session.user == null}">
+       <div class="div-masinfo-botones">
+        <label th:text="${NumParticipantes}"></label>
+        <a href="/" th:href="@{/participanteIniciativa/list/{id_iniciativa}(id_iniciativa=${iniciativa.id_iniciativa})}"
+           class="btn btn-outline-dark  boton-mas-info-detalles" role="button" >VER PARTICIPANTES</a>
+      </div>
+     </span>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

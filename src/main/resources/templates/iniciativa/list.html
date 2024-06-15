@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Lista de Iniciativas</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid" th:object="${session}">
+    <H1>LISTA DE INICIATIVAS</H1>
+    <div style="background: #003B6B; margin-top: 20px; margin-bottom: 50px" class="div-home-separador"></div>
+
+    <span th:unless="*{user == null}">
+            <a th:if="*{rol.toString()!='PAS'}">
+        <div class="div-ods-add">
+            <a href="/" th:href="@{/iniciativa/add/}"
+               class="btn btn-outline-dark botones-add" role="button">Registrar iniciativa</a>
+        </div>
+            </a>
+    </span>
+    <div class="tooltip" style="margin-left: 20px">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="Ayuda" width="90px" class="imageRight">
+        <span class="tooltiptext"> Ayuda:
+            <ul>
+                 <span th:unless="*{user == null}">
+                    <a th:if="*{rol.toString()!='PAS'}">
+                         <li>Crear tu propia Iniciativa pulsando Registrar Iniciativa</li>
+                    </a>
+                </span>
+                 <span th:unless="*{user == null}">
+                    <a th:if="*{rol.toString()=='PAS'}">
+                         <li>Sólo puedes Editar o Finalizar una Iniciativa si está en Progreso</li>
+                    </a>
+                </span>
+
+                <li>Puedes ver las Acciones asociadas a cada Iniciativa pulsando +Info</li>
+                <li>Cuando haya más de 8 Iniciativas, puedes verlos en la siguiente página</li>
+
+            </ul>
+        </span>
+    </div>
+    <div class="div-iniciativa-list-principal">
+
+        <div class="div-iniciativa-list-principal-separador">
+
+
+            <form method="get" th:action="@{/iniciativa/filtro}" class="filtro">
+                <label for="state">Por ODS</label>
+                <select name="id_ods">
+                    <option value="-1">Todos</option>
+                    <option th:each="opcion: ${odslist}" th:value="${opcion.id_ods}"
+                            th:text="${opcion.id_ods} +'- '+ ${opcion.nombre}"></option>
+                </select>
+                <label for="state">Por estado</label>
+                <select id="state" name="state">
+                    <option value="Todos">Todos</option>
+                    <option value="En progreso">En progreso</option>
+                    <option value="Finalizado">Finalizado</option>
+
+                </select>
+                <label for="state">Por fecha de Inicio</label>
+                <select id="orden" name="orden">
+                    <option value="nuevo">Más nuevos primero</option>
+                    <option value="antiguo"> Más antiguos primero</option>
+                </select>
+                <button type="submit" CLASS="botones-nav"> FILTRAR</button>
+            </form>
+
+
+        </div>
+
+    </div>
+    <div th:with="iniciativaList=${iniciativasPaged[__${selectedPage}__]}">
+    <div class="div-iniciativa-list-contenedorPrincipal" th:object="${session}">
+            <table class="table table-striped div-iniciativa-list-contenedorPrincipal">
+                <thead>
+                <tr style="text-align: left">
+                    <th>Nombre</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Finalización</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="iniciativa: ${iniciativaList}">
+                    <td class="nombresLista" th:text="${iniciativa.nombre}"></td>
+                    <td th:text="${#temporals.format(iniciativa.fechaInicio, 'dd-MM-yyyy')}"></td>
+                    <a th:if="${iniciativa.fechaFin == null}">
+                        <td>Indeterminado</td>
+                    </a>
+                    <a th:if="${iniciativa.fechaFin != null}">
+                        <td th:text="${#temporals.format(iniciativa.fechaFin, 'dd-MM-yyyy')}"></td>
+                    </a>
+                    <a th:if="${iniciativa.estado == 'Finalizado'}">
+                        <td th:text="${iniciativa.estado}" style="color: darkred"></td>
+                    </a>
+                    <a th:if="${iniciativa.estado == 'En progreso'}">
+                        <td th:text="${iniciativa.estado}" style="color: darkgreen"></td>
+                    </a>
+
+                    <td><a th:href="@{/iniciativa/masInfo/{id_iniciativa}(id_iniciativa=${iniciativa.id_iniciativa})}"
+                           class="btn btn-info" role="button">+Info</a></td>
+                    <a th:if="*{rol != null and rol.toString() != null}">
+
+                        <a th:if="${iniciativa.estado == 'En progreso'}">
+                        <a th:if="*{rol.toString()=='PAS' }">
+                            <td>
+                                <a class="btn btn-warning"
+                                   th:href="@{/iniciativa/updateAdmin/{id_iniciativa}(id_iniciativa=${iniciativa.id_iniciativa})}">Editar</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger"
+                                   th:href="@{/iniciativa/finalizar/{id_iniciativa}(id_iniciativa=${iniciativa.id_iniciativa})}"
+                                   onclick="return confirm('FINALIZAR la iniciativa')" role="button">Finalizar</a>
+                            </td>
+                        </a>
+                        </a>
+                    </a>
+                </tr>
+
+
+                </tbody>
+            </table>
+        <nav aria-label="seleccion de pagina en listado iniciativas">
+            <ul class="pagination">
+                <li th:class="${pageNumber == selectedPage} ? 'page-item current-page' : 'page-item'"
+                    th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/iniciativa/pagedlist?page={sele}(sele=${pageNumber})}"
+                       th:text="${pageNumber + 1}"
+                       th:class="page-link">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+</div>
+</body>
+</html>

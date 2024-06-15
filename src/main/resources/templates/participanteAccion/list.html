@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Lista de acciones</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+
+<div layout:fragment="container-fluid" th:object="${session}">
+
+    <div th:replace="fragments/back"></div>
+  <div class="container">
+  <h1 style="text-transform: uppercase" th:text= " ${nombreAccion}"></h1>
+  <div style="background: #003B6B; margin-top: 20px; margin-bottom: 50px" class="div-home-separador"></div>
+    <span th:unless="*{user == null}">
+        <a th:if="${session.id_miembro == id_miembrou}" >
+        <div class="div-ods-add">
+            <a href="/" th:href="@{/participanteAccion/add/{id_iniciativa}(id_iniciativa=${id_iniciativa})}" class="btn btn-outline-info botones-add"
+               role="button"> Añadir participante</a>
+        </div>
+        </a>
+    </span>
+
+    <a th:if="${participantesAccion.size()!=0}">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="participante: ${participantesAccion}">
+          <td th:text="${participante.nombre}"></td>
+          <td th:text="${participante.correo}"></td>
+          <span th:unless="*{user == null}">
+                      <a th:if="${session.id_miembro == id_miembrou}" >
+                         <td>
+                            <a th:href="@{/participanteAccion/delete/{id_miembro}/{id_accion}(id_miembro=${participante.id_miembro},id_accion=${id_accion})}"
+                               class="btn btn-danger" role="button" onclick="return confirm('¿Estas seguro que quieres ELIMINAR al participante?')">Eliminar</a>
+                         </td>
+                      </a>
+                </span>
+        </tr>
+
+        </tbody>
+      </table>
+    </a>
+    <a th:if="${participantesAccion.size()==0}">
+      <div style="text-align: center; margin-top: 150px">
+        <a>NO HAY PARTICIPANTES!!!</a>
+      </div>
+    </a>
+
+
+</div>
+</div>
+</div>
+</body>
+</html>

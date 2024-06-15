@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Listado ODS</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid">
+    <div th:object="${session}">
+<h1>LISTA DE ODS</h1>
+        <div style="background: #003B6B; margin-top: 20px; margin-bottom: 50px" class="div-home-separador"></div>
+        <a th:if="*{rol.toString()=='PAS'}">
+              <div class="div-ods-add">
+                    <a href="/" th:href="@{/ods/add/}"
+                       class="btn btn-outline-dark botones-add" role="button">Registrar ODS</a>
+             </div>
+        </a>
+    <div class="grid-container2">
+            <div class="card grid-content2" style="width: 14rem;" th:each="ods: ${odsList}">
+                <img class="card-img-top" th:src="${ods.foto_ref}">
+                <div class="card-body">
+                    <p class="card-text" th:text="${ods.descripcion}"></p>
+                </div>
+                <a th:if="*{rol.toString()=='PAS'}">
+                    <a href="/" type="button" class="btn btn-secondary"  th:href="@{/ods/update/{id_ods}(id_ods=${ods.id_ods})}">Editar</a>
+                    <a href="/" type="button" class="btn btn-danger" onclick="return alert('¡ALERTA! NO SE ELIMINARÁ SI CONTIENE OBJETIVOS')" th:href="@{/ods/delete/{id_ods}(id_ods=${ods.id_ods})}">Eliminar</a>
+                    <a href="/"  th:href="@{/objetivo/list/{id_ods}(id_ods=${ods.id_ods})}" class="btn btn-info" role="button"> Gestión Objetivos</a>
+                </a>
+
+                <a th:if="*{rol.toString()!='PAS'}">
+                    <a href="/"  th:href="@{/objetivo/list/{id_ods}(id_ods=${ods.id_ods})}" class="btn btn-info" role="button">
+                        Ver objetivos  <br> Activar Suscripción</a>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+    <meta charset="UTF-8"/>
+    <title>UJI</title>
+
+    <style>
+
+
+    </style>
+
+
+
+</head>
+<body>
+<div layout:fragment="container-fluid">
+    <span th:unless="*{session.user == null || session.user.tipo == 'Estudiante' || session.user =='PDI'}">
+    <div class="centro-mando">
+        <h2>Centro de Mando</h2>
+        <div class="estadisticas">
+            <div>
+                <h4 class="centro-mando-nombres">Número de iniciativas en progreso:</h4>
+                <p th:text="${num_iniciativa_progreso}"  class="centro-mando-nombre-estado"></p>
+            </div>
+            <div>
+                <h4 class="centro-mando-nombres">Número de iniciativas hasta hoy:</h4>
+                <p th:text="${num_iniciativa_total}" class="centro-mando-nombre-estado">25</p>
+            </div>
+            <div>
+                <h4 class="centro-mando-nombres">Última iniciativa:</h4>
+                <p th:text="${ultimaIniciativa}" class="centro-mando-nombre-estado"></p>
+            </div>
+            <div>
+                <h4 class="centro-mando-nombres">Última acción:</h4>
+                <p th:text="${ultimaAccion}" class="centro-mando-nombre-estado"></p>
+            </div>
+            <div>
+                <h4 class="centro-mando-nombres">Usuario con más iniciativas:</h4>
+                <p th:text="${usuarioMasIniciativa}" class="centro-mando-nombre-estado"></p>
+            </div>
+            <div>
+                <h4 class="centro-mando-nombres">ODS con más iniciativas:</h4>
+                <p th:text="${odsMasIniciativas}" class="centro-mando-nombre-estado"></p>
+            </div>
+            <div>
+                <h4 class="centro-mando-nombres">Iniciativas sin Acción (A eliminar)</h4>
+                <p th:text="${iniciativasSinOds}" class="centro-mando-nombre-estado"></p>
+            </div>
+             <div>
+                <h4 class="centro-mando-nombres">FECHA DE HOY</h4>
+                <p th:text="${fechaHoy}" class="centro-mando-nombre-estado"></p>
+            </div>
+
+
+        </div>
+    </div>
+
+    </span>
+
+
+    <h1 style="font-size: 50px">¡Ayuda a Mejorar el Mundo con las ODS de la UJI!</h1>
+    <div class="div-home-principal">
+        <div class="div-home-imagen">
+            <img src="https://www.isglobal.org/documents/10179/22225/ODS-circulo-ES-web.jpg/ef6e0215-4d61-4221-8b63-092eb7fe50a0?t=1671473129000"
+                 width="900" height="400">
+        </div>
+        <div class="parrafo-principal-ods">
+            <p>Descubre, <span class="destacado-ods">actúa</span> y <span class="destacado-ods">transforma</span> junto a la comunidad de la UJI. En nuestra plataforma, encontrarás
+                <span class="historias-cambio">inspiradoras iniciativas</span> de nuestros miembros, ¡<span class="historias-cambio">Historias de cambio</span> que te dejarán sin aliento!</p>
+            <p></p>
+            <br>
+            <br>
+            <p>Pero no solo eso, ¡Tú también puedes ser el protagonista del cambio! <span class="registra-iniciativa">Registra tu propia propuesta de
+                iniciativa</span> y hazla realidad con el apoyo de nuestra red comprometida. Subscríbete a los Objetivos de
+                Desarrollo Sostenible (ODS) que más te apasionen y únete a proyectos y acciones <span class="acciones-transformadoras">transformadoras</span>.
+            </p>
+            <br>
+            <p>
+                ¿Quieres saber más? ¡Sigue Bajando!
+            </p>
+        </div>
+    </div>
+    <div class="div-home-separador"></div>
+    <h1>¿Qué son las ODS?</h1>
+    <div class="parrafo-ods">
+        <p>Las Objetivos de Desarrollo Sostenible <a href="https://www.un.org/sustainabledevelopment/es/objetivos-de-desarrollo-sostenible/">(ODS)</a> son un conjunto de metas globales establecidas por las Naciones Unidas <a href="https://www.un.org/es/">(ONU)</a> para abordar los desafíos más urgentes que enfrenta nuestro planeta.
+            Estas metas abarcan áreas fundamentales como la erradicación de la pobreza, la promoción de la igualdad de género, la acción contra el cambio climático y la construcción de sociedades
+            justas y sostenibles para todos. Las ODS son importantes porque representan un llamado a la acción para lograr un futuro más próspero, inclusivo y equitativo.
+        Reconocen que los problemas que enfrentamos hoy en día, como la pobreza extrema, la desigualdad y la degradación ambiental, están interconectados y requieren soluciones integrales. Estas
+        metas nos instan a trabajar juntos, desde los gobiernos hasta la sociedad civil y los ciudadanos, para construir un mundo mejor.
+        <h3 style="color: red; padding: 20px"> Hoy en día hay <a style="color:#42973A">17 </a> Objetivos</h3>
+    </div>
+
+
+    <div class="div-home-tarjetas">
+        <div class="grid-container">
+            <div class="grid-item">
+                <a href="https://www.un.org/sustainabledevelopment/es/poverty/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-01.jpg"
+                         height="150px" width="150px"></a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/hunger/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-02.jpg"
+                         height="150px" width="150px"></a>
+            </div>
+
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/health/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-03.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/education/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-04.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/gender-equality/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-05.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/water-and-sanitation/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-06.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/energy/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-07.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/economic-growth/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-08.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/infrastructure">
+                    <img src="https://www.un.org/sustainabledevelopment/wp-content/uploads/sites/3/2015/09/S_SDG_Icons-01-09.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/inequality/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-10.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/cities/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-11.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/sustainable-consumption-production/">
+                    <img src="https://www.un.org/sustainabledevelopment/wp-content/uploads/sites/3/2015/09/S_SDG_Icons-01-12.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/climate-change-2/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-13.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+
+                <a href="http://www.un.org/sustainabledevelopment/es/oceans/">
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-14.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/biodiversity/">
+
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-15.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/peace-justice/">
+
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-16.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://www.un.org/sustainabledevelopment/es/globalpartnerships/">
+
+                    <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2016/01/S_SDG_Icons-01-17.jpg"
+                         height="150px" width="150px">
+                </a>
+            </div>
+            <div class="grid-item">
+                <img src="http://www.un.org/sustainabledevelopment/es/wp-content/uploads/sites/3/2015/09/S_SDG_Icons-01-18.jpg"
+                     height="150px" width="150px">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-home-separador"></div>
+    <h1>¿Qué puedo hacer?</h1>
+    <div class="parrafo-ods">
+        <p>
+            En la Universidad Jaume I, nos comprometemos con los Objetivos de Desarrollo Sostenible (ODS) y motivamos a
+            nuestros alumnos a convertirse en agentes de cambio en la protección del medio ambiente. Es por eso que hemos creado esta plataforma,
+            con el objetivo de impulsar iniciativas transformadoras y promover la colaboración entre estudiantes y personal universitario. Nuestro
+            objetivo es generar un impacto positivo en la sociedad y el planeta, formando líderes comprometidos con el cuidado del medio ambiente. Estamos dedicados
+            a promover un cambio real y sostenible, y estamos orgullosos de ser una institución que fomenta la responsabilidad ambiental entre nuestros estudiantes.
+        </p>
+        <p style="text-align: center; padding-top: 20px">
+            ¡Te alentamos a participar o crear tus propias Iniciativas!
+        </p>
+    </div>
+
+
+
+    <div class="div-home-botonListaIniciativas-abajo">
+        <a href="/" th:href="@{/iniciativa/pagedlist}" class="btn btn-outline-info boton-principal" role="button"> Ver
+            Iniciativas de la UJI</a>
+    </div>
+</div>
+</body>
+</html>

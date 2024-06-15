@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Lista de Objetivos</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+<div layout:fragment="container-fluid" th:object="${session}">
+    <div th:replace="fragments/back"></div>
+
+    <h1 style="text-transform: uppercase" th:text= " ${nombreOds}"></h1>
+
+    <div style="background: #003B6B; margin-top: 20px; margin-bottom: 50px" class="div-home-separador"></div>
+    <span th:unless="*{user == null}" style="justify-content: center; display: flex">
+            <a th:if="*{rol.toString()=='PAS'}">
+        <a th:href="@{/objetivo/add/{id_ods}(id_ods=${id_ods})}"
+           class="btn btn-success botones-add" role="button">Añadir Objetivo</a>
+            </a>
+        </span>
+    <div class="div-ods-add">
+
+        <a th:if="*{rol.toString()!='PAS'}">
+            <a th:if="${suscrito == null}">
+                <a href="/"  th:href="@{/suscriptor/suscribirse/{id_ods}(id_ods=${id_ods})}" class="btn btn-success botones-add"
+                   onclick="return confirm('¿Estás seguro que quieres SUSCRIBIRTE a este ODS?')" role="button"> Suscribirse</a>
+
+            </a>
+
+            <a  th:if="${suscrito != null}">
+                <a href="/"  th:href="@{/suscriptor/desuscribirmse/{id_ods}(id_ods=${id_ods})}" class="btn btn-success botones-add "
+                   onclick="return confirm('¿Estás seguro que quieres DESUSCRIBIRTE de este ODS?')" style="background: #CF3322; color: white" role="button">Desuscribirse</a>
+            </a>
+        </a>
+    </div>
+    <div class="div-iniciativa-list-contenedorPrincipal">
+<!--        <table class="table table-striped div-iniciativa-list-contenedorPrincipal">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Nombre</th>-->
+<!--                <th>Descripción</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="objetivo: ${objetivoList}">-->
+<!--                <td class="nombresLista" th:text="${objetivo.getNombre}"></td>-->
+<!--                <td th:text="${objetivo.getDescripcion}"></td>-->
+<!--                <span th:unless="*{user == null}">-->
+<!--                    <a th:if="*{rol.toString()=='PAS'}">-->
+<!--                    <td><a th:href="@{/objetivo/update/{id_objetivo}(id_objetivo=${objetivo.getId_objetivo()})}"-->
+<!--                           class="btn btn-warning" role="button">Actualizar</a></td>-->
+<!--                    <td>-->
+<!--                        <a th:href="@{/objetivo/delete/{id_objetivo}/{id_ods}(id_objetivo=${objetivo.getId_objetivo()},id_ods=${objetivo.getId_ods()})}"-->
+<!--                           class="btn btn-danger" role="button">Eliminar</a></td>-->
+
+<!--                    </a></span>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+        <div th:each="objetivo : ${objetivoList}">
+            <div class="card w-100 card-objetivos">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-weight: bold" th:text="${objetivo.getNombre}">Título de la tarjeta</h5>
+                    <p class="card-text" th:text="${objetivo.getDescripcion}">Con texto de apoyo a continuación como introducción natural a contenido adicional.</p>
+                    <span th:unless="*{user == null}">
+                        <a th:if="*{rol.toString()=='PAS'}">
+                        <td><a th:href="@{/objetivo/update/{id_objetivo}(id_objetivo=${objetivo.getId_objetivo()})}"
+                               class="btn btn-warning" role="button">Actualizar</a></td>
+                        <td>
+                            <a th:href="@{/objetivo/delete/{id_objetivo}/{id_ods}(id_objetivo=${objetivo.getId_objetivo()},id_ods=${objetivo.getId_ods()})}"
+                               class="btn btn-danger" role="button" onclick="return confirm('Vas a ELIMINAR un objetivo que puede estar siendo utilizado, ¿Estás seguro que quieres continuar?')">Eliminar</a></td>
+
+                        </a></span>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+</body>
+</html>

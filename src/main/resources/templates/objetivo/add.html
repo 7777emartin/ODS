@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/base}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Añadir  Objetivo</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid">
+    <div th:replace="fragments/back"></div>
+    <div class="div-miembrouji-add-general">
+        <div class="form-container-add">
+            <h2 style="text-align: center;margin: 30px;">Nuevo Objetivo</h2>
+
+        <form action="#" th:action="@{/objetivo/add}" th:object="${objetivo}" method="post">
+
+            <div>
+                <input type="hidden" class="form-control" id="id_ods" th:field="*{id_ods}"/>
+            </div>
+            <div>
+                <input type="hidden" class="form-control" id="id_objetivo" th:field="*{id_objetivo}"/>
+            </div>
+            <div class="form-group-add">
+                <label for="descripcion">Nombre</label>
+                <input type="text" class="form-control" id="nombre_objetivo" name="nombre"  maxlength="200" th:field="*{nombre}" placeholder="Introduce el nombre"/>
+                <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class=error></div>
+
+            </div>
+            <div class="form-group-add">
+                <label for="descripcion">Descripción</label>
+                <textarea class="form-control" id="descripcion" rows="3" cols="15"  maxlength="2000" style="resize: none;" th:field="*{descripcion}" placeholder="Introduce la descripción"></textarea>
+                <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class=error></div>
+
+            </div>
+            <div class="form-group-add">
+                <button type="submit" class="btn btn-primary">AÑADIR OBJETIVO</button>
+            </div>
+        </form>
+
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
+</html>

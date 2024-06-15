@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Gestión Suscripciones</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+<div layout:fragment="container-fluid">
+
+    <div th:object="${session}">
+        <H1>MIS SUSCRIPCIONES</H1>
+        <div style="background: #003B6B; margin-top: 20px; margin-bottom: 50px" class="div-home-separador"></div>
+
+        <a th:if="${tamResult ==  0}">
+            <div style="text-align: center; margin-top: 150px">
+                <a>NO ESTÁS SUSCRITO A NINGÚN ODS!</a>
+            </div>
+        </a>
+        <a th:if="${tamResult !=  0}">
+        <div class="grid-container2">
+            <div class="card grid-content2" style="width: 14rem;" th:each="ods: ${suscripciones}">
+                <img class="card-img-top" th:src="${ods.foto_ref}">
+                <div class="card-body" style="min-height: 200px">
+                    <p class="card-text" th:text="${ods.descripcion}"></p>
+                </div>
+                <a href="/" th:href="@{/objetivo/list/{id_ods}(id_ods=${ods.id_ods})}" class="btn btn-outline-info" role="button">
+                    Ver objetivos <br> Cancelar suscripción</a>
+
+                </div>
+
+            </div>
+        </a>
+    </div>
+</div>
+</body>
+</html>

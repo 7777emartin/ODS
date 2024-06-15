@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Gestión Miembros UJI</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+
+
+
+
+</head>
+<body>
+
+<div layout:fragment="container-fluid">
+    <div class="div-volver-add">
+        <a href="javascript:history.back()" class="btn btn-dark fixed-button" style="font-size: 50px; text-align: center; line-height: 35px;">←</a>
+    </div>
+
+    <div class="div-miembrouji-add-general">
+
+        <div class="form-container-add">
+            <h1>Nuevo Miembro UJI</h1>
+            <form class="form-horizontal" action="#" th:action="@{/miembrouji/add}"
+                  th:object="${miembrouji}" method="post">
+
+
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="nombre" maxlength="20" th:field="*{nombre}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="nombre">password:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="password" maxlength="20" th:field="*{password}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="telefono">Teléfono:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="telefono" maxlength="20" th:field="*{telefono}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="correo">correo:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="correo" maxlength="20" placeholder="ejemplo@uji.es" th:field="*{correo}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="tipo">Tipo:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="tipo" name="tipo"  th:field="*{tipo}" required>
+                            <option value="">Seleccionar tipo</option>
+                            <option value="Estudiante">Estudiante</option>
+                            <option value="PAS">PAS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="submit" class="btn btn-primary" th:onclick="'return confirm(\'¿Estás seguro de que deseas crear El usuario?'">Añadir Miembro UJI</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/base}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Añadir Participante Iniciativa</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+<div layout:fragment="container-fluid">
+    <div th:replace="fragments/back"></div>
+        <div class="div-miembrouji-add-general">
+            <div class="form-container-add">
+                <h2 style="text-align: center;margin: 30px;">Añadir Participante en la Iniciativa</h2>
+                <form action="#" method="post" th:action="@{/participanteIniciativa/add}" th:object="${participanteIniciativa}">
+                    <div class="form-group-add">
+                        <label >Correo del Participante</label>
+                        <input type="text" class="form-control" id="correo" name="correo" placeholder="Introduce el correo del participante"/>
+                        <span th:if="${errorAtributo != null}"  class="error">El correo no es válido</span>
+                    </div>
+
+                    <td><input type="hidden" th:field="${participanteIniciativa.id_iniciativa}"/></td>
+                    <td><input type="hidden" th:field="${participanteIniciativa.id_miembro}"/></td>
+
+                    <div class="form-group-add">
+                        <button type="submit" class="btn btn-primary">Añadir Participante</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+</body>
+</html>

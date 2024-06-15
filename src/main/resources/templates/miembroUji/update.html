@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestión Miembros UJI</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Modificar Miembro UJI</h2>
+<form action="#" th:action="@{/miembrouji/update}"
+      th:object="${miembrouji}" method="post">
+  <table>
+    <tr>
+      <td><label>id_miembro</label></td>
+      <td><input type="text" th:field="*{id_miembro}" /></td>
+    </tr>
+    <tr>
+      <td><label>Nombre</label></td>
+      <td><input type="text" th:field="*{nombre}" /></td>
+    </tr>
+    <tr>
+      <td><label>Teléfono</label></td>
+      <td><input type="text" th:field="*{telefono}" /></td>
+    </tr>
+    <tr>
+      <td><label>correo</label></td>
+      <td><input type="text" th:field="*{correo}" /></td>
+    </tr>
+    <tr>
+      <td><label>Tipo</label></td>
+      <td><input type="text" th:field="*{tipo}" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="submit" value="Actualizar Miembro UJI" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

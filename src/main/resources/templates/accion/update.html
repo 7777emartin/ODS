@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Información de Acción</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid">
+<div th:replace="fragments/back"></div>
+
+<div style="display: flex; flex-direction: row; justify-content: center;">
+    <div class="div-ods-add">
+        <a href="/" th:href="@{/participanteAccion/list/{id_accion}(id_accion=${id_accion})}"
+           class="btn btn-outline-dark boton-gestionar-info-detalles" role="button">GESTIONAR PARTICIPANTES</a>
+    </div>
+</div>
+
+<div class="div-miembrouji-add-general">
+    <div class="form-container-add" style="background:#e1ff6e">
+        <h2 style="text-align: center;margin: 30px;">Editar ACCIÓN</h2>
+        <div class="tooltip" >
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="Ayuda" width="90px" class="imageRight">
+            <span class="tooltiptext"> Ayuda:
+                        <ul>
+                            <li>Rellena el campo progresión para mantener informado a los participantes</li>
+                            <li>¡No olvides poner los comentarios finales antes de finalizar la Acción!</li>
+
+                        </ul>
+                    </span>
+        </div>
+        <form action="#" th:action="@{/accion/update}" th:object="${accion}" method="post">
+            <div class="form-group-add">
+                <label>Nombre</label>
+                <input class="form-control" type="text" name="nombre" th:field="${accion.nombre}" th:value="${accion.nombre}" maxlength="200"/>
+                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error"></span>
+            </div>
+
+            <div class="form-group-add">
+                <label for="resultadoEsperado">Resultado Esperado</label>
+                <textarea class="form-control" id="resultadoEsperado" rows="3" cols="15" style="resize: none;" th:field="${accion.resultadoEsperado}" th:value="${accion.resultadoEsperado}" maxlength="2000"></textarea>
+                <span th:if="${#fields.hasErrors('resultadoEsperado')}" th:errors="*{resultadoEsperado}" class="error"></span>
+            </div>
+
+            <div class="form-group-add">
+                <label for="progresion">Progresión</label>
+                <textarea class="form-control" id="progresion" rows="3" cols="15" style="resize: none;" th:field="${accion.progresion}" maxlength="2000"></textarea>
+            </div>
+
+            <div class="form-group-add">
+                <label for="resultado">Resultado</label>
+                <textarea class="form-control" id="resultado" rows="3" cols="15" style="resize: none;" th:field="${accion.resultado}" maxlength="2000"></textarea>
+            </div>
+
+            <td><input type="hidden" th:field="${accion.id_accion}" /></td>
+            <td><input type="hidden" th:field="${accion.id_objetivo}" /></td>
+            <td><input type="hidden" th:field="${accion.id_iniciativa}" /></td>
+            <td><input type="hidden" th:field="${accion.fechaInicio}" /></td>
+            <td><input type="hidden" th:field="${accion.fechaFin}" /></td>
+
+            <div class="form-group-add">
+                <button type="submit" class="btn btn-primary"th:onclick="'return confirm(\'¿Estás seguro de que deseas ACTUALIZAR esta Accion?\')'" >ACTUALIZAR ACCIÓN</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</div>
+</body>

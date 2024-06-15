@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/base}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Info Acción</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+<div layout:fragment="container-fluid">
+    <div th:replace="fragments/back"></div>
+    <div class="container" th:object="${session}">
+
+        <div th:each="accion: ${accion}">
+            <div class="div-iniciativa-masinfo-iniciativa-principal ">
+                <h1 th:text="${accion.nombre}"></h1>
+                <div class="div-masinfo-row" >
+                    <a>
+                        <label style="margin: 20px;">Fecha Inicio</label>
+                        <span class="btn btn-outline-info noManita" th:text="${#temporals.format(accion.fechaInicio, 'dd-MM-yyyy')}"></span>
+                    </a>
+
+                    <a th:if="${accion.fechaFin == null}">
+                        <label style="margin: 20px;">Fecha Fin</label>
+                        <span class="btn btn-outline-info noManita">Indeterminado</span>
+                    </a>
+
+                    <a th:if="${accion.fechaFin != null}">
+                        <label style="margin: 20px;">Fecha Fin</label>
+                        <span class="btn btn-outline-info noManita" th:text="${accion.fechaFin}"></span>
+                    </a>
+
+                    <a>
+                        <label style="margin: 20px;">Objetivo</label>
+                        <span class="btn btn-outline-primary dynamic-button noManita" th:text="${objetivo.nombre}"></span>
+                    </a>
+                </div>
+
+
+                <h3>Resultado Esperado</h3>
+                <span class="box-cuadritos" th:text="${accion.resultadoEsperado}"></span>
+
+                <span th:if="${accion.progresion != '' and accion.progresion != null}">
+                    <h3>Progresión</h3>
+                    <span class="box-cuadritos" th:text="${accion.progresion}"></span>
+                </span>
+
+                <span th:if="${accion.resultado != ''and accion.resultado != null }">
+                    <h3>Resultado</h3>
+                    <span class="box-cuadritos" th:text="${accion.resultado}"></span>
+                </span>
+
+                <span th:if="${accion.fechaModificacion != null}">
+                    <div style="display: block">
+                        <label style="margin: 20px;">Última modificación</label>
+                        <span class="btn btn-outline-dark noManita" th:text="${#temporals.format(accion.fechaModificacion,'dd-MM-yyyy')}"></span>
+                    </div>
+                </span>
+
+            <span th:unless="*{user == null}">
+                <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <div class="div-masinfo-botones">
+                        <label th:text="${NumParticipantes}"></label>
+                        <a href="/" th:href="@{/participanteAccion/list/{id_accion}(id_accion=${accion.id_accion})}"
+                           class="btn btn-outline-dark  boton-mas-info-detalles" role="button">VER PARTICIPANTES</a>
+                    </div>
+                </div>
+            </span>
+
+
+
+
+
+</div>
+
+</div>
+
+    </div>
+</div>
+</body>
+</html>

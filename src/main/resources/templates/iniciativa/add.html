@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/base}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registrar Propuesta de Iniciativa</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+<div layout:fragment="container-fluid">
+    <div th:replace="fragments/back"></div>
+    <div class="div-miembrouji-add-general">
+        <div class="tooltip" >
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="Ayuda" width="90px" class="imageRight">
+            <span class="tooltiptext"> Ayuda:
+            <ul>
+                <li>Si no sabes todavía una fecha de Finalización, puedes dejarlo en Blanco</li>
+                <li>¡Necesitas al menos una Acción para crear tú propuesta, así como un Participante!</li>
+                <li>Intenta ser conciso en tu idea</li>
+                <li>Podrás añadir más Acciones desde la GESTION de cada Iniciativa</li>
+
+            </ul>
+        </span>
+        </div>
+        <div class="form-container-add">
+            <h2 style="text-align: center;margin: 30px;">Nueva Iniciativa</h2>
+            <form action="#" th:action="@{/iniciativa/add}" th:object="${iniciativa}" method="post">
+                <div class="form-group-add">
+                    <label for="descripcion">Nombre de la Iniciativa</label>
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" maxlength="50"  />
+                    <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error"></div>
+                </div>
+                <div class="form-group-add">
+                    <label for="fecha_inicio">Fecha Inicio</label>
+                    <input type="text" class="form-control" id="fecha_inicio" name="fecha_fin" th:value="${diaHoy}"  disabled />
+                </div>
+                <div class="form-group-add">
+                    <label for="fecha_fin">Fecha estimada de Finalización</label>
+                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" th:field="*{fechaFin}" th:min="${#temporals.createToday()}" />
+                </div>
+                <div class="form-group-add">
+                    <label>Seleccione un ODS</label>
+                    <select class="custom-select mr-sm-2" th:field="*{id_ods}" required>
+                        <option value="0" selected>Selecciona una ODS</option>
+                        <option th:each="opcion: ${odslist}" th:value="${opcion.id_ods}" th:text="${opcion.id_ods}+'- '+ ${opcion.nombre}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('id_ods')}" th:errors="*{id_ods}" class="error"></div>
+                </div>
+                <div class="form-group-add">
+                    <label for="descripcion">Descripción</label>
+                    <textarea class="form-control" id="descripcion" rows="3" cols="15" style="resize: none;" th:field="*{descripcion}" maxlength="500" placeholder="Explica tu idea"></textarea>
+                    <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="error"></div>
+                </div>
+                <div class="form-group-add">
+                    <label for="motivacion">Motivación</label>
+                    <textarea class="form-control" id="motivacion" rows="3" cols="15" style="resize: none;" th:field="*{motivacion}"   maxlength="500"  placeholder="Cuenta las razones de la creación de esta Iniciativa"></textarea>
+                    <div th:if="${#fields.hasErrors('motivacion')}" th:errors="*{motivacion}" class="error"></div>
+                </div>
+                <div class="form-group-add">
+                    <label>Selecciona una Competencia</label>
+                    <select class="custom-select mr-sm-2" th:field="*{clasificacion}">
+                        <option value="" selected>Selecciona una clasificación</option>
+                        <option value="Aprendizaje y enseñanza">Aprendizaje y enseñanza</option>
+                        <option value="Investigacion">Investigacion</option>
+                        <option value="Liderazgo externo">Liderazgo externo</option>
+                        <option value="Gobernanza">Gobernanza</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('clasificacion')}" th:errors="*{clasificacion}" class="error"></div>
+                </div>
+                <div class="form-group-add">
+                    <button type="submit" class="btn btn-primary" th:onclick="'return confirm(\'¿Estás seguro de que deseas crear esta iniciativa?\')'">Crear la Iniciativa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="tooltip" style="margin-left: 20px">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="Ayuda" width="90px" class="imageRight">
+        <span class="tooltiptext"> Ayuda:
+            <ul>
+                <li>Si no sabes todavía una fecha de Finalización, puedes dejarlo en Blanco</li>
+                <li>¡Necesitas al menos una Acción para crear tú propuesta, así como un Participante!</li>
+                <li>Intenta ser conciso en tu idea</li>
+                <li>Podrás añadir más Acciones desde la GESTION de cada Iniciativa</li>
+
+            </ul>
+        </span>
+    </div>
+</div>
+</body>
+</html>

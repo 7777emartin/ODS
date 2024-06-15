@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Lista de Iniciativas</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid" th:object="${session}">
+  <div th:replace="fragments/back"></div>
+  <div style="display: flex; flex-direction: row; justify-content: center;">
+    <div class="div-ods-add">
+      <a th:href="@{/accion/list/{id_iniciativa}(id_iniciativa=${id_iniciativa})}" class="btn btn-outline-dark boton-gestionar-info-detalles" role="button" >GESTIONAR ACCIONES</a>
+    </div>
+    <div class="div-ods-add">
+      <a href="/" th:href="@{/participanteIniciativa/list/{id_iniciativa}(id_iniciativa=${id_iniciativa})}"
+         class="btn btn-outline-dark boton-gestionar-info-detalles" role="button">GESTIONAR PARTICIPANTES</a>
+    </div>
+  </div>
+
+  <div class="div-miembrouji-add-general">
+    <div class="form-container-add" style="background:#e1ff6e">
+      <h2 style="text-align: center;margin: 30px;">Editar INICIATIVA</h2>
+      <div class="tooltip" >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="Ayuda" width="90px" class="imageRight">
+        <span class="tooltiptext"> Ayuda:
+            <ul>
+                <li>Antes de Finalizar una Iniciativa, recomendamos añadir comentarios generales y resultados de la Iniciativa</li>
+            </ul>
+        </span>
+      </div>
+      <form action="#" th:action="@{/iniciativa/updateAdmin}" th:object="${iniciativa}" method="post">
+        <div class="form-group-add">
+          <label>Nombre</label>
+          <input type="text" class="form-control" id="numero_ods" name="nombre" maxlength="50" th:field="${iniciativa.nombre}" />
+          <div th:if="${#fields.hasErrors('nombre')}" th:errors="${iniciativa.nombre}" class="error"></div>
+        </div>
+
+        <div class="form-group-add">
+          <label for="descripcion">Descripción</label>
+          <textarea class="form-control" id="descripcion" rows="3" cols="15" style="resize: none;"  maxlength="500" th:field="${iniciativa.descripcion}"></textarea>
+          <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="error"></div>
+        </div>
+
+        <div class="form-group-add">
+          <label for="motivacion">Motivación</label>
+          <textarea class="form-control" id="motivacion" rows="3" cols="15" style="resize: none;" maxlength="500" th:field="${iniciativa.motivacion}"></textarea>
+          <div th:if="${#fields.hasErrors('motivacion')}" th:errors="*{motivacion}" class="error"></div>
+        </div>
+
+        <div class="form-group-add">
+          <label for="comentario">Comentarios Generales</label>
+          <textarea class="form-control" id="comentario" rows="3" cols="15" maxlength="1999" style="resize: none;" th:field="${iniciativa.comentario}"></textarea>
+        </div>
+
+        <td><input type="hidden" th:field="${iniciativa.id_miembro}" /></td>
+        <td><input type="hidden" th:field="${iniciativa.id_ods}" /></td>
+        <td><input type="hidden" th:field="${iniciativa.id_iniciativa}" /></td>
+        <td><input type="hidden" th:field="${iniciativa.estado}" /></td>
+
+        <div class="form-group-add">
+          <button type="submit" class="btn btn-primary">ACTUALIZAR Iniciativa</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

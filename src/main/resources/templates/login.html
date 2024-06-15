@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Gestión Miembros UJI</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid">
+  <div class="div-login-principal">
+    <div class="form-login">
+    <h2>Login</h2>
+    <form action="#" th:action="@{/login} "
+          th:object="${user}" method="post" >
+      <p>
+        <input class="form_control" type="text" th:field="*{correo}" placeholder="Correo"/>
+      <div class="error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+
+      <p>
+        <input class="form_control" type="password" th:field="*{password}" placeholder="Contraseña"/>
+      <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+      </p>
+      <input type="submit" class="btn btn-primary" value="Acceder" />
+    </form>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

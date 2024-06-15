@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light nav-principal">
+    <div class="logo-container">
+        <a th:href="@{/}">
+            <img src="https://mooc.uji.es/images/marca-uji-color-fons-transparent.png" width="300px" height="60px">
+        </a>
+
+    </div>
+
+    <div class="buttons-container" th:object="${session}">
+        <a href="/" th:href="@{/}" class="btn btn-outline-dark botones-nav" role="button">Inicio</a>
+        <a href="/" th:href="@{/iniciativa/pagedlist}" class="btn btn-outline-dark botones-nav" role="button">Lista de Iniciativas</a>
+
+        <span style="display: flex" th:unless="*{user == null}">
+        <a th:if="*{rol.toString()=='PAS'}">
+          <a href="/iniciativa/listPropuestas" class="btn btn-outline-dark botones-nav" role="button">Propuestas pendientes <span th:if="${session.numeroPropuestas != 0}" th:text="${session.numeroPropuestas}" class="badge badge-danger badge-pill"></span></a>
+          <a href="/ods/list" class = "btn btn-outline-dark botones-nav" role="button">Lista de ODS</a>
+          <a href="/miembrouji/add" class = "btn btn-outline-dark botones-nav" role="button">Registrar nuevo Miembro </a>
+            
+
+        </a>
+        <a th:if="*{rol.toString()!='PAS'}">
+             <div>
+        <select id="herramientas-select" onchange="window.location.href=this.value" class=" btn btn-outline-dark botones-nav">
+            <option value="" disabled selected hidden>HERRAMIENTAS</option>
+            <option value="/iniciativa/filtroPersonal?id_ods=-1&state=Todos&orden=nuevo">Mis Iniciativas</option>
+            <option value="/ods/list">Lista de ODS</option>
+            <option value="/suscriptor/list">Mis Suscripciones</option>
+        </select>
+
+    </div>
+        </a>
+
+        </span>
+
+
+    </div>
+
+
+    <div th:replace="fragments/logininfo"></div>
+</nav>

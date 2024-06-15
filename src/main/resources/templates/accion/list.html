@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Lista de acciones</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+
+<div layout:fragment="container-fluid" th:object="${session}">
+    <div th:replace="fragments/back"></div>
+    <div class="container">
+    <h1 style="text-transform: uppercase" th:text= " ${nombreIniciativa}"></h1>
+        <div style="background: #003B6B; margin-top: 20px; margin-bottom: 50px" class="div-home-separador"></div>
+        <a th:if="${session.id_miembro == iniciativa.id_miembro}" >
+            <div class="div-ods-add">
+                <a href="/" th:href="@{/accion/add/{id_iniciativa}(id_iniciativa=${iniciativa.id_iniciativa})}"
+                   class="btn btn-outline-dark botones-add" role="button">AÑADIR ACCIÓN</a>
+            </div>
+        </a>
+        <div class="row">
+            <div th:each="accion : ${accionList}" class="div-accionlist-card col-md-6 mb-3">
+                <div class="card card-objetivos" style="min-width: 400px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: bold" th:text="${accion.nombre}">Nombre de la Acción</h5>
+                        <p class="card-text">Fecha de Inicio: <span th:text="${#temporals.format( accion.fechaInicio,'dd-MM-yyyy')}">Fecha Inicio</span></p>
+                        <p class="card-text">Fecha de Fin: <span th:text="${#temporals.format( accion.fechaFin,'dd-MM-yyyy')}">Fecha Fin</span></p>
+                        <a th:href="@{/accion/infoAccion/{id_accion}(id_accion=${accion.id_accion})}" class="btn btn-info" role="button">+Info</a>
+                        <a th:if="${session.id_miembro == iniciativa.id_miembro}" >
+                            <a th:href="@{/accion/update/{id_accion}(id_accion=${accion.id_accion})}" class="btn btn-warning" role="button">Gestionar</a>
+                            <a th:if="${accion.fechaInicio <= fechaHoy and accion.fechaFin >= fechaHoy}">
+                                <a th:if="${accion.fechaFin != fechaHoy }">
+                                    <a th:href="@{/accion/finalizar/{id_accion}(id_accion=${accion.id_accion})}" class="btn btn-danger"
+                                       onclick="return confirm('¿Estás seguro de FINALIZAR esta Acción?')" role="button">Finalizar</a>
+                                </a>
+                            </a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

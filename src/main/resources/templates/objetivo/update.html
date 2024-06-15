@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/base}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Editar  Objetivo</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/principalCSS.css"/>
+</head>
+<body>
+
+<div layout:fragment="container-fluid" th:object="${session}">
+
+<!--    <h2>Modificar Miembro UJI</h2>-->
+<!--    <form action="#" th:action="@{/objetivo/update}"-->
+<!--          th:object="${objetivo}" method="post">-->
+
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <td><input type="hidden" th:field="${objetivo.id_objetivo}"/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><label>Nombre: </label></td>-->
+<!--                <td><input type="text" th:field="${objetivo.nombre}"/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><input type="hidden" th:field="${objetivo.id_ods}"/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><label>Descripcion: </label></td>-->
+<!--                <td><input type="text" th:field="${objetivo.descripcion}"/></td>-->
+<!--            </tr>-->
+
+
+<!--            <tr>-->
+<!--                <td colspan="2"><input type="submit" value="Actualizar objetivo"/></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </form>-->
+
+    <div th:replace="fragments/back"></div>
+
+
+    <div class="div-miembrouji-add-general">
+        <div class="form-container-add" style="background:#e1ff6e">
+            <h2 style="text-align: center;margin: 30px;">Editar Objetivo</h2>
+            <form action="#" th:action="@{/objetivo/update}" th:object="${objetivo}" method="post">
+
+                <td><input type="hidden" th:field="${objetivo.id_objetivo}"/></td>
+                <td><input type="hidden" th:field="${objetivo.id_ods}"/></td>
+
+                <div class="form-group-add">
+                    <label for="descripcion">Nombre</label>
+                    <input type="text" class="form-control" id="nombre_objetivo" name="nombre"  maxlength="200" th:field="${objetivo.nombre}"/>
+                    <div th:if="${#fields.hasErrors('nombre')}" th:errors="${objetivo.nombre}" class = error></div>
+                </div>
+                <div class="form-group-add">
+                    <label for="descripcion">Descripción</label>
+                    <textarea class="form-control" id="descripcion" rows="3" cols="15" maxlength="2000" style="resize: none;" th:field="${objetivo.descripcion}"></textarea>
+                    <div th:if="${#fields.hasErrors('descripcion')}" th:errors="${objetivo.descripcion}" class = error></div>
+
+                </div>
+
+                <div class="form-group-add">
+                    <button type="submit" class="btn btn-primary">ACTUALIZAR OBJETIVO</button>
+                </div>
+            </form>
+
+        </div>
+
+
+
+    </div>
+</body>
+</html>
